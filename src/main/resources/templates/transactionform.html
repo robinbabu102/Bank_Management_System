@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Transaction History - TrustWave Bank</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+	color: #fff;
+	text-align: center;
+	padding-top: 80px;
+}
+
+.header {
+	background-color: #004a8d;
+	color: white;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+}
+
+.logo {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.nav-links {
+	display: flex;
+	gap: 2rem;
+}
+
+.nav-links a {
+	color: white;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.container {
+	margin: 50px auto;
+	width: 80%;
+	background: white;
+	color: #333;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+	color: #1e3c72;
+	margin-bottom: 20px;
+}
+
+form {
+	margin-bottom: 20px;
+}
+
+label {
+	font-weight: bold;
+}
+
+input {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 2px solid #ddd;
+	border-radius: 5px;
+}
+
+button {
+	background: #1e3c72;
+	color: white;
+	border: none;
+	padding: 12px;
+	width: 100%;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background 0.3s ease;
+}
+
+button:hover {
+	background: #2a5298;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+table, th, td {
+	border: 1px solid #ddd;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+
+th {
+	background: #1e3c72;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background: #f2f2f2;
+}
+</style>
+</head>
+<body>
+	<header class="header">
+		<div class="logo">TrustWave Bank</div>
+		<nav class="nav-links">
+			<a href="" th:href="@{/accounts/index}">Home</a>
+			<a href="" th:href="@{/accounts/service}">Services</a>
+			<a href="" th:href="@{/accounts/about}">About</a>
+			<a href="" th:href="@{/accounts/contact}">Contact</a>
+			<a href="" th:href="@{/accounts/transactions}">Transactions</a>
+		</nav>
+	</header>
+
+	<div class="container">
+		<h2>Transaction History</h2>
+		<form th:action="@{/accounts/transaction}" method="post">
+			<label for="accountNumber">Account Number</label>
+			<input type="text" id="accountNumber" name="accountNumber" required>
+			<button type="submit">Submit</button>
+		</form>
+		<table>
+			<tr>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Type</th>
+			</tr>
+			<tr th:each="tr : ${transaction}">
+				<td th:text="${tr.amount}"></td>
+				<td th:text="${tr.timeStamp}"></td>
+				<td th:text="${tr.type}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
